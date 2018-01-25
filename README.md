@@ -15,7 +15,7 @@ bake driver-ui-vr
 
 You can now start any project that serves up the corto UI. If you want to create a project from scratch, read the next section.
 
-## Create a project that serves 3D data
+## Create a project that serves up 3D data
 First, to create a project that instantiates the UI, run these commands:
 ```
 corto create MyUiServer
@@ -47,7 +47,7 @@ corto run MyUiServer --interactive
 ```
 Now, go to `http://localhost:9090`, and you should see the icon of the VR plugin (two stacked squares). If you click on the icon, you should see a grey plane and a dark background (likely no objects).
 
-## Visualizing data
+### Creating the datamodel
 The UI can only visualize data that has been annotated with semantic tags. Tags tell corto what a member of a type means, like for example that it is a position, color or rotation. To create data that can be visualized, add this code to a file called `model.cx`:
 ```
 in application MyUiServer
@@ -61,6 +61,7 @@ Because tags come from another package, it must be listed as a dependency in the
 "use": ["tags"]
 ```
 
+### Creating the data
 Now add file called `data.json` to the `config` folder that contains:
 ```json
 [
@@ -77,12 +78,15 @@ Now add file called `data.json` to the `config` folder that contains:
 ]
 ```
 
+### Keeping the project alive
 Now, add the following code to the `cortomain` function of `src/MyUiServer.c`, to ensure that the application doesn't quit:
 ```
 while (true) {
     corto_sleep(1, 0);
 }
 ```
+
+### Run it!
 If you navigate the UI to the data scope (click the compas icon) while the VR viewer is active, you will see two squares. For an overview of available tags, see: https://cortoproject/tags
 
 If you weren't running the project anymore in interactive mode, you can manually run these commands to build & start the project:
