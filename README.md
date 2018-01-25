@@ -43,8 +43,10 @@ corto run MyUiServer --interactive
 Now, go to `http://localhost:9090`, and you should see the icon of the VR plugin (two stacked squares). If you click on the icon, you should see a grey plane and a dark background (likely no objects).
 
 ## Visualizing data
-The UI can only visualize data that has been annotated with semantic tags. Tags tell corto what a member of a type means, like for example that it is a position, color or rotation. To create data that can be visualized, create a type like this:
+The UI can only visualize data that has been annotated with semantic tags. Tags tell corto what a member of a type means, like for example that it is a position, color or rotation. To create data that can be visualized, add this code to a file called `model.cx`:
 ```
+in application MyUiServer
+
 struct Point:/
     x: int32, tags={tags/position/x}
     y: int32, tags={tags/position/y}
