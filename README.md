@@ -16,12 +16,12 @@ bake driver-ui-vr
 You can now start any project that serves up the corto UI. If you want to create a project from scratch, read the next section.
 
 ## Create a project that serves up 3D data
-You can simply download and run the code in this repository: https://github.com/SanderMertens/HelloVR
+You can simply download and run the code in this repository: https://github.com/SanderMertens/HelloVR.
 If you want to create a project from scratch, run these commands:
 ```
-corto create MyUiServer
-mkdir MyUiServer/config
-touch MyUiServer/config/config.json
+corto create HelloVR
+mkdir HelloVR/config
+touch HelloVR/config/config.json
 ```
 Then add the following configuration to `config.json` to create a websocket service and a service that servers static content on port 9090:
 ```json
@@ -44,14 +44,14 @@ Then add the following configuration to `config.json` to create a websocket serv
 ```
 You can now run the project by doing:
 ```
-corto run MyUiServer --interactive
+corto run HelloVR --interactive
 ```
 Now, go to `http://localhost:9090`, and you should see the icon of the VR plugin (two stacked squares). If you click on the icon, you should see a grey plane and a dark background (likely no objects).
 
 ### Creating the datamodel
 The UI can only visualize data that has been annotated with semantic tags. Tags tell corto what a member of a type means, like for example that it is a position, color or rotation. To create data that can be visualized, add this code to a file called `model.cx`:
 ```
-in application MyUiServer
+in application HelloVR
 
 struct Point:/
     x: int32, tags={tags/position/x}
@@ -68,19 +68,19 @@ Now add file called `data.json` to the `config` folder that contains:
 [
   {
     "id": "data/p",
-    "type": "MyUiServer/Point",
+    "type": "HelloVR/Point",
     "value": {"x": -2, "y": 2}
   },
   {
     "id": "data/q",
-    "type": "MyUiServer/Point",
+    "type": "HelloVR/Point",
     "value": {"x": 2, "y": 2}
   }
 ]
 ```
 
 ### Keeping the project alive
-Now, add the following code to the `cortomain` function of `src/MyUiServer.c`, to ensure that the application doesn't quit:
+Now, add the following code to the `cortomain` function of `src/HelloVR.c`, to ensure that the application doesn't quit:
 ```
 while (true) {
     corto_sleep(1, 0);
@@ -92,8 +92,8 @@ If you navigate the UI to the data scope (click the compas icon) while the VR vi
 
 If you weren't running the project anymore in interactive mode, you can manually run these commands to build & start the project:
 ```
-bake MyUiServer
-corto run MyUiServer --interactive
+bake HelloVR
+corto run HelloVR --interactive
 ```
 
 ## Using VR
