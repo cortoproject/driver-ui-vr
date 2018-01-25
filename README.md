@@ -21,20 +21,22 @@ touch MyUiServer/config/config.json
 ```
 Then add the following configuration to `config.json` to create a websocket service and a service that servers static content on port 9090:
 ```json
-{
-    "id": "config/ws_service",
-    "type": "corto/ws/service",
-    "value": {
-        "port": 9090
+[
+    {
+        "id": "config/ws_service",
+        "type": "corto/ws/service",
+        "value": {
+            "port": 9090
+        }
+    },
+    {
+        "id": "config/ui_service",
+        "type": "corto/ui/service",
+        "value": {
+            "port": 9090
+        }
     }
-},
-{
-    "id": "config/ui_service",
-    "type": "corto/ui/service",
-    "value": {
-        "port": 9090
-    }
-}
+]
 ```
 You can now run the project by doing:
 ```
@@ -51,6 +53,11 @@ struct Point:/
     x: int32, tags={tags/position/x}
     y: int32, tags={tags/position/y}
 ```
+Because tags come from another package, it must be listed as a dependency in the project configuration. Add this line to the `value` member in `project.json`:
+```
+"use": ["tags"]
+```
+
 Now add file called `data.json` to the `config` folder that contains:
 ```json
 [
@@ -66,7 +73,20 @@ Now add file called `data.json` to the `config` folder that contains:
   }
 ]
 ```
+
+Now, add the following code to the `cortomain` function of `src/MyUiServer.c`, to ensure that the application doesn't quit:
+```
+while (true) {
+    corto_sleep(1, 0);
+}
+```
 If you navigate the UI to the data scope (click the compas icon) while the VR viewer is active, you will see two squares. For an overview of available tags, see: https://cortoproject/tags
+
+If you weren't running the project anymore in interactive mode, you can manually run these commands to build & start the project:
+```
+bake MyUiServer
+corto run MyUiServer --interactive
+```
 
 ## Using VR
 Because the viewer makes use of the A-FRAME framework (www.aframe.io) you can also use the viewer in VR mode. For this, you will need to open the webpage on a mobile phone, and press on the Google Cardboard icon (bottom of the viewer). Then turn the phone in horizontal mode, and the view will switch to a Google Cardboard compatible view.
