@@ -16,7 +16,8 @@ bake driver-ui-vr
 You can now start any project that serves up the corto UI. If you want to create a project from scratch, read the next section.
 
 ## Create a project that serves up 3D data
-First, to create a project that instantiates the UI, run these commands:
+You can simply download and run the code in this repository: https://github.com/SanderMertens/HelloVR
+If you want to create a project from scratch, run these commands:
 ```
 corto create MyUiServer
 mkdir MyUiServer/config
