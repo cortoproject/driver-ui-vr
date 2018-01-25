@@ -1,0 +1,11 @@
+{
+    "id": "driver/ui/vr",
+    "type": "package",
+    "value": {
+        "description": "Visualize objects in 3D",
+        "author": "Sander Mertens",
+        "version": "1.0.0",
+        "language": "none",
+        "icon": "layers"
+    }
+}
