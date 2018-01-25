@@ -96,6 +96,9 @@ bake HelloVR
 corto run HelloVR --interactive
 ```
 
+You should see this in your browser:
+![screenshot](images/screenshot.png)
+
 ## Using VR
 Because the viewer makes use of the A-FRAME framework (www.aframe.io) you can also use the viewer in VR mode. For this, you will need to open the webpage on a mobile phone, and press on the Google Cardboard icon (bottom of the viewer). Then turn the phone in horizontal mode, and the view will switch to a Google Cardboard compatible view.
 
