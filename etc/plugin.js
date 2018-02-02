@@ -51,6 +51,9 @@ Vue.component('plugin-vr-objects', {
             x: "position/x",
             y: "position/y",
             z: "position/z",
+            width: "size/width",
+            height: "size/height",
+            depth: "size/depth",
             size: "size",
             shape: "shape",
             color: "color"
@@ -65,6 +68,9 @@ Vue.component('plugin-vr-objects', {
             var size = this.set_value(object.getMember(tag_view.size), 1);
             var shape = this.set_value(object.getMember(tag_view.shape), "box");
             var color = this.set_value(object.getMember(tag_view.color), "#00C4A3");
+            var width = this.set_value(object.getMember(tag_view.width), size);
+            var height = this.set_value(object.getMember(tag_view.height), size);
+            var depth = this.set_value(object.getMember(tag_view.depth), size);
 
             if (shape == "square") {
                 shape = "box";
@@ -79,9 +85,9 @@ Vue.component('plugin-vr-objects', {
               {
                 attrs: {
                     position: "" + x + " " + y + " " + z,
-                    geometry: "width:" + size + "; height:" + size + "; depth:" + size,
+                    geometry: "width:" + width + "; height:" + height + "; depth:" + depth,
                     color: color,
-                    shadow: "cast: true; receive: false"
+                    shadow: "cast: true; receive: true"
                 }
               }
             ));
@@ -106,13 +112,19 @@ Vue.component('plugin-vr', {
   props: ['db', 'connected', 'url'],
   template: `
     <div :data-refresh="db.length">
-        <a-scene>
+        <a-scene fog="type: linear; color: #191c20; far: 60; near: 0">
             <plugin-vr-objects
               :db="db"
               :connected="connected"
               :url="url">
             </plugin-vr-objects>
-            <a-plane shadow="receive:true" position="0 0 -4" rotation="-90 0 0" width="20" height="20" color="#282c34" material="transparency: true; opacity: 0.5" static-body></a-plane>
+            <a-plane
+                shadow="receive:true"
+                position="0 0 -4" rotation="-90 0 0" width="20" height="20"
+                color="#282c34"
+                material="transparency: true; opacity: 0.5"
+                static-body>
+            </a-plane>
             <a-sky color="#191c20"></a-sky>
         </a-scene>
     </div>
