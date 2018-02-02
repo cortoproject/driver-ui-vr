@@ -79,7 +79,7 @@ Vue.component('plugin-vr-objects', {
               {
                 attrs: {
                     position: "" + x + " " + y + " " + z,
-                    scale: "" + size + " " + size + " " + size,
+                    geometry: "width:" + size + "; height:" + size + "; depth:" + size,
                     color: color,
                     shadow: "cast: true; receive: false"
                 }
@@ -92,7 +92,12 @@ Vue.component('plugin-vr-objects', {
 
     // Hack to make the Vue component return a single parent object
     return h(
-      'a-box', {attrs:{"data-refresh": this.db.length, material:"transparency: true; opacity: 0"}}, objects
+      'a-box', {
+          attrs:{
+              "data-refresh": this.db.length,
+              geometry:"width: 0; depth: 0; height: 0",
+              material:"transparency: true; opacity: 0"}
+          }, objects
     );
   }
 });
@@ -107,7 +112,7 @@ Vue.component('plugin-vr', {
               :connected="connected"
               :url="url">
             </plugin-vr-objects>
-            <a-plane shadow="receive:true" position="0 0 -4" rotation="-90 0 0" width="20" height="20" color="#282c34" static-body></a-plane>
+            <a-plane shadow="receive:true" position="0 0 -4" rotation="-90 0 0" width="20" height="20" color="#282c34" material="transparency: true; opacity: 0.5" static-body></a-plane>
             <a-sky color="#191c20"></a-sky>
         </a-scene>
     </div>
