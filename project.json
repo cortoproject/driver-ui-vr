@@ -5,7 +5,7 @@
         "description": "Visualize objects in 3D",
         "author": "Sander Mertens",
         "version": "1.0.0",
-        "language": "none",
+        "language": null,
         "icon": "layers"
     }
 }
